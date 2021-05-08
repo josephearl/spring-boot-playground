@@ -1,24 +1,20 @@
 package uk.co.mo.springboot.playground;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Value;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.data.relational.core.mapping.Column;
 
-import javax.validation.ValidationException;
-
-@Value
-// Override constructor access level
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Value(staticConstructor = "of")
 public class EmailAddress {
   private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator();
   @Column("email_address")
   String value;
 
-  public static EmailAddress of(String emailAddress) throws ValidationException {
-    if (!EMAIL_VALIDATOR.isValid(emailAddress, null))
-      throw new ValidationException("Invalid email address");
-    return new EmailAddress(emailAddress);
+  private EmailAddress(String value) {
+    if (value == null || value.isEmpty())
+      throw new IllegalArgumentException("Email address must not be null or empty");
+    if (!EMAIL_VALIDATOR.isValid(value, null))
+      throw new IllegalArgumentException("Email address must not be invalid");
+    this.value = value;
   }
 }

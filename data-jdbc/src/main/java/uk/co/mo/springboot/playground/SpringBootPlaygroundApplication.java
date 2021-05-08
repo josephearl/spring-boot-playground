@@ -2,6 +2,7 @@ package uk.co.mo.springboot.playground;
 
 import javax.validation.constraints.NotNull;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
