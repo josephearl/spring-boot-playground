@@ -11,6 +11,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
+// Load our custom configuration
 @ContextConfiguration(classes = JdbcConfiguration.class)
 class CustomerRepositoryTest {
   @Autowired

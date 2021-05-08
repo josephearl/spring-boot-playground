@@ -10,6 +10,8 @@ import org.springframework.data.relational.core.mapping.NamingStrategy;
 
 import java.util.Optional;
 
+// Disable force quoting so that column names in @Column and @MappedCollection are case-insensitive
+// https://spring.io/blog/2020/05/20/migrating-to-spring-data-jdbc-2-0
 @Configuration
 @EnableJdbcRepositories
 public class JdbcConfiguration extends AbstractJdbcConfiguration {
