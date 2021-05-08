@@ -1,0 +1,33 @@
+# Build tools
+target/
+build/
+.gradle/
+out/
+gradle.properties
+classes/
+
+# IntelliJ IDEA
+.idea/*
+*.ipr
+*.iws
+*.iml
+.metadata
+.settings
+.project
+.classpath
+
+# VS Code
+bin
+.vscode
+
+# Configuration files
+configuration/build-jobs/personal-??.xml
+configuration/settings-??.xml
+
+# Local dev files
+.envrc
+.talismanrc
+local-setup.sh
+
+# macOS system files
+.DS_Store
