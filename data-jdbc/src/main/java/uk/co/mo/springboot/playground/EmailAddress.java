@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Column;
 @Value(staticConstructor = "of")
 public class EmailAddress {
   private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator();
-  @Column("email_address")
+  @Column("EMAIL_ADDRESS")
   String value;
 
   private EmailAddress(String value) {

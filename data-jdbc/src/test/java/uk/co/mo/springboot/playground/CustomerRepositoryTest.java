@@ -3,7 +3,6 @@ package uk.co.mo.springboot.playground;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -11,8 +10,6 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJdbcTest
-// Load our custom configuration
-@ContextConfiguration(classes = JdbcConfiguration.class)
 class CustomerRepositoryTest {
   @Autowired
   private CustomerRepository customerRepository;

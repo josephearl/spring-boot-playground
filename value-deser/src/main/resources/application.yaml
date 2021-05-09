@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-boot-playground-webmvc
+    name: spring-boot-playground
   main:
     banner-mode: "off"
   lifecycle:

@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Column;
 
 @Value(staticConstructor = "of")
 public class Tag {
-  @Column("tag")
+  @Column("TAG")
   String value;
 
   private Tag(String value) {
