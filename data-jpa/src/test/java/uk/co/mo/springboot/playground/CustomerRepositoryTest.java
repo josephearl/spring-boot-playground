@@ -31,6 +31,8 @@ class CustomerRepositoryTest {
           .postCode("80085")
           .country("US")
           .build())
+      .tag(Tag.of("creepy"))
+      .tag(Tag.of("moneybags"))
       .build();
 
     var savedCustomer = customerRepository.save(newCustomer);
@@ -50,7 +52,8 @@ class CustomerRepositoryTest {
         .city("Springfield")
         .postCode("80085")
         .country("US")
-        .build(), savedCustomer.getPhysicalAddress()));
+        .build(), savedCustomer.getPhysicalAddress()),
+      () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()));
   }
 
   @Test

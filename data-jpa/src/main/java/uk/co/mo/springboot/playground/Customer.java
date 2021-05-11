@@ -1,12 +1,10 @@
 package uk.co.mo.springboot.playground;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -30,7 +28,7 @@ public class Customer {
   private Set<Tag> tags;
 
   @Builder
-  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress) {
+  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags) {
     this.id = null;
     this.title = title;
     this.firstName = firstName;
@@ -38,5 +36,6 @@ public class Customer {
     this.dateOfBirth = dateOfBirth;
     this.physicalAddress = physicalAddress;
     this.emailAddress = emailAddress;
+    this.tags = tags != null ? tags : Collections.emptySet();
   }
 }
