@@ -21,4 +21,13 @@ class StringEnumTest {
 
     assertEquals("\"Hello StringEnum!\"", json);
   }
+
+  @Test
+  void shouldDeserializeEnumUsingToString() throws JsonProcessingException {
+    var json = "\"Hello StringEnum!\"";
+
+    var stringEnum = objectMapper.readValue(json, StringEnum.class);
+
+    assertEquals(StringEnum.STRINGY, stringEnum);
+  }
 }

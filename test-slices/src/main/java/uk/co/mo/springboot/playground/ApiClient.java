@@ -11,7 +11,7 @@ public class ApiClient {
     this.restTemplate = restTemplate;
   }
 
-  public String getValue() {
-    return restTemplate.getForObject("http://api.example.com", String.class);
+  public StringEnum getValue() {
+    return restTemplate.getForObject("/string", StringEnum.class);
   }
 }
