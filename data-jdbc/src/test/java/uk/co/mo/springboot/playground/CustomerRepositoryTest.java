@@ -44,19 +44,14 @@ class CustomerRepositoryTest {
       () -> assertEquals("Monty", savedCustomer.getFirstName()),
       () -> assertEquals("Burns", savedCustomer.getLastName()),
       () -> assertEquals(LocalDate.of(1886, 9, 15), savedCustomer.getDateOfBirth()),
-      () -> assertEquals("burns@springfieldnuclear.com", savedCustomer.getEmailAddress().getValue()),
-      () -> {
-        var physicalAddress = savedCustomer.getPhysicalAddress();
-        assertNotNull(physicalAddress);
-        assertAll(
-          "physicalAddress",
-          () -> assertEquals("1000 Mammon Lane", physicalAddress.getLine1()),
-          () -> assertNull(physicalAddress.getLine2()),
-          () -> assertEquals("Springfield", physicalAddress.getCity()),
-          () -> assertEquals("80085", physicalAddress.getPostCode()),
-          () -> assertEquals("US", physicalAddress.getCountry())
-        );
-      },
+      () -> assertEquals(EmailAddress.of("burns@springfieldnuclear.com"), savedCustomer.getEmailAddress()),
+      () -> assertEquals(PhysicalAddress.builder()
+        .line1("1000 Mammon Lane")
+        .line2(null)
+        .city("Springfield")
+        .postCode("80085")
+        .country("US")
+        .build(), savedCustomer.getPhysicalAddress()),
       () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()));
   }
 
@@ -73,18 +68,14 @@ class CustomerRepositoryTest {
       () -> assertEquals("Waylon", loadedCustomer.getFirstName()),
       () -> assertEquals("Smithers", loadedCustomer.getLastName()),
       () -> assertEquals(LocalDate.of(1954, 12, 25), loadedCustomer.getDateOfBirth()),
-      () -> assertEquals("smithers@springfieldnuclear.com", loadedCustomer.getEmailAddress().getValue()),
-      () -> {
-        var physicalAddress = loadedCustomer.getPhysicalAddress();
-        assertAll(
-          "physicalAddress",
-          () -> assertEquals("1000 Mammon Lane", physicalAddress.getLine1()),
-          () -> assertNull(physicalAddress.getLine2()),
-          () -> assertEquals("Springfield", physicalAddress.getCity()),
-          () -> assertEquals("80085", physicalAddress.getPostCode()),
-          () -> assertEquals("US", physicalAddress.getCountry())
-          );
-      },
+      () -> assertEquals(EmailAddress.of("smithers@springfieldnuclear.com"), loadedCustomer.getEmailAddress()),
+      () -> assertEquals(PhysicalAddress.builder()
+        .line1("1000 Mammon Lane")
+        .line2(null)
+        .city("Springfield")
+        .postCode("80085")
+        .country("US")
+        .build(), loadedCustomer.getPhysicalAddress()),
       () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()));
   }
 }

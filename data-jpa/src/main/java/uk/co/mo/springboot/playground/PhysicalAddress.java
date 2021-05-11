@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -14,6 +12,7 @@ import javax.persistence.OneToOne;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PhysicalAddress {
   @Id
+  @Getter(AccessLevel.NONE)
   private Long customer;
   private String line1;
   private String line2;
