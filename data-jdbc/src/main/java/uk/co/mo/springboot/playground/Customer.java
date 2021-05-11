@@ -26,14 +26,7 @@ public class Customer {
 
   @Builder
   Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags) {
-    this.id = null;
-    this.title = title;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.dateOfBirth = dateOfBirth;
-    this.physicalAddress = physicalAddress;
-    this.emailAddress = emailAddress;
-    this.tags = tags != null ? tags : Collections.emptySet();
+    this(null, title, firstName, lastName, dateOfBirth, physicalAddress, emailAddress, tags);
   }
 
   @PersistenceConstructor
