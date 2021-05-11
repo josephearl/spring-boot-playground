@@ -9,6 +9,7 @@ import org.springframework.data.relational.core.mapping.Embedded;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Value
@@ -23,14 +24,15 @@ public class Customer {
   @Embedded.Nullable
   EmailAddress emailAddress;
   Set<Tag> tags;
+  List<Favorite> favorites;
 
   @Builder
-  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags) {
-    this(null, title, firstName, lastName, dateOfBirth, physicalAddress, emailAddress, tags);
+  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags, @Singular List<Favorite> favorites) {
+    this(null, title, firstName, lastName, dateOfBirth, physicalAddress, emailAddress, tags, favorites);
   }
 
   @PersistenceConstructor
-  Customer(Long id, String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, Set<Tag> tags) {
+  Customer(Long id, String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, Set<Tag> tags, List<Favorite> favorites) {
     this.id = id;
     this.title = title;
     this.firstName = firstName;
@@ -39,5 +41,6 @@ public class Customer {
     this.physicalAddress = physicalAddress;
     this.emailAddress = emailAddress;
     this.tags = tags != null ? tags : Collections.emptySet();
+    this.favorites = favorites != null ? favorites : Collections.emptyList();
   }
 }

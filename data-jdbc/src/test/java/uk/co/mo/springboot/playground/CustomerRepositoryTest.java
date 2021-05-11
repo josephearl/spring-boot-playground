@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,8 @@ class CustomerRepositoryTest {
           .build())
       .tag(Tag.of("creepy"))
       .tag(Tag.of("moneybags"))
+      .favorite(Favorite.of("Mr Burns", Rating.AWESOME))
+      .favorite(Favorite.of("Mr Smithers", Rating.MEH))
       .build();
 
     var savedCustomer = customerRepository.save(newCustomer);
@@ -52,7 +55,9 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), savedCustomer.getPhysicalAddress()),
-      () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()));
+      () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()),
+      () -> assertEquals(List.of(Favorite.of("Mr Burns", Rating.AWESOME),
+        Favorite.of("Mr Smithers", Rating.MEH)), savedCustomer.getFavorites()));
   }
 
   @Test
@@ -76,6 +81,8 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), loadedCustomer.getPhysicalAddress()),
-      () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()));
+      () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()),
+      () -> assertEquals(List.of(Favorite.of("Ice cream", Rating.AWESOME),
+        Favorite.of("Mr Burns", Rating.SUCKS)), loadedCustomer.getFavorites()));
   }
 }
