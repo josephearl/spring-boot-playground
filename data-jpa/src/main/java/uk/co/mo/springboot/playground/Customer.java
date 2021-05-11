@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,11 +20,14 @@ public class Customer {
   private String firstName;
   private String lastName;
   private LocalDate dateOfBirth;
-  @OneToOne
+  @OneToOne(orphanRemoval = true)
   @PrimaryKeyJoinColumn
   private PhysicalAddress physicalAddress;
   @Embedded
   private EmailAddress emailAddress;
+  @OneToMany(orphanRemoval = true)
+  @JoinColumn(name = "CUSTOMER")
+  private Set<Tag> tags;
 
   @Builder
   Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress) {

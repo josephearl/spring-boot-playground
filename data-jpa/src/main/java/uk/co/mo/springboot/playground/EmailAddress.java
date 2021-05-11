@@ -1,9 +1,6 @@
 package uk.co.mo.springboot.playground;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 
 import javax.persistence.Column;
@@ -13,6 +10,7 @@ import javax.persistence.Embeddable;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
 public class EmailAddress {
   private static final EmailValidator EMAIL_VALIDATOR = new EmailValidator();
   @Column(name = "EMAIL_ADDRESS")

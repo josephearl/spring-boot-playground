@@ -10,6 +10,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(exclude = "customer")
 public class PhysicalAddress {
   @Id
   @Getter(AccessLevel.NONE)
