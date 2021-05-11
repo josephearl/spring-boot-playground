@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
-@Getter
+@Getter(AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Tag {
@@ -21,7 +21,7 @@ public class Tag {
   }
 
   public String getValue() {
-    return tagId.tag;
+    return tagId.getTag();
   }
 
   @Override
@@ -29,11 +29,11 @@ public class Tag {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Tag tag = (Tag) o;
-    return tagId.tag.equals(tag.tagId.tag);
+    return tagId.getTag().equals(tag.tagId.getTag());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tagId.tag);
+    return Objects.hash(tagId.getTag());
   }
 }

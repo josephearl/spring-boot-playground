@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @EqualsAndHashCode(exclude = "customer")
 public class PhysicalAddress {
   @Id
-  @Getter(AccessLevel.NONE)
+  @Getter(AccessLevel.PACKAGE)
   private Long customer;
   private String line1;
   private String line2;

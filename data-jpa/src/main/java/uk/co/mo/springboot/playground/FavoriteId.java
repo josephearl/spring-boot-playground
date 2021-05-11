@@ -10,11 +10,7 @@ import java.io.Serializable;
 @Embeddable
 @Getter(AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-class TagId implements Serializable {
+class FavoriteId implements Serializable {
   private Long customer;
-  private String tag;
-
-  TagId(String tag) {
-    this.tag = tag;
-  }
+  private Integer customerKey;
 }

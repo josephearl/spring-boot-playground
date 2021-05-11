@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,6 +34,8 @@ class CustomerRepositoryTest {
           .build())
       .tag(Tag.of("creepy"))
       .tag(Tag.of("moneybags"))
+      .favorite(Favorite.of("Mr Burns", Rating.AWESOME))
+      .favorite(Favorite.of("Mr Smithers", Rating.MEH))
       .build();
 
     var savedCustomer = customerRepository.save(newCustomer);
@@ -53,7 +56,13 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), savedCustomer.getPhysicalAddress()),
-      () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()));
+//      () -> assertEquals(2L, savedCustomer.getPhysicalAddress().getCustomer()),
+      () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()),
+//      () -> assertTrue(savedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(2L))),
+      () -> assertEquals(List.of(Favorite.of("Mr Burns", Rating.AWESOME),
+        Favorite.of("Mr Smithers", Rating.MEH)), savedCustomer.getFavorites())
+//      ,() -> assertTrue(savedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(2L)))
+    );
   }
 
   @Test
@@ -77,6 +86,11 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), loadedCustomer.getPhysicalAddress()),
-      () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()));
+      () -> assertEquals(1L, loadedCustomer.getPhysicalAddress().getCustomer()),
+      () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()),
+      () -> assertTrue(loadedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(1L))),
+      () -> assertEquals(List.of(Favorite.of("Ice cream", Rating.AWESOME),
+        Favorite.of("Mr Burns", Rating.SUCKS)), loadedCustomer.getFavorites()),
+      () -> assertTrue(loadedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(1L))));
   }
 }

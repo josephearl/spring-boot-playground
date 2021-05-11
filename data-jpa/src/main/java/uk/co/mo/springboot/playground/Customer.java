@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,9 +27,12 @@ public class Customer {
   @OneToMany(orphanRemoval = true)
   @JoinColumn(name = "CUSTOMER")
   private Set<Tag> tags;
+  @OneToMany(orphanRemoval = true)
+  @JoinColumn(name = "CUSTOMER")
+  private List<Favorite> favorites;
 
   @Builder
-  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags) {
+  Customer(String title, String firstName, String lastName, LocalDate dateOfBirth, PhysicalAddress physicalAddress, EmailAddress emailAddress, @Singular Set<Tag> tags, @Singular List<Favorite> favorites) {
     this.id = null;
     this.title = title;
     this.firstName = firstName;
@@ -37,5 +41,6 @@ public class Customer {
     this.physicalAddress = physicalAddress;
     this.emailAddress = emailAddress;
     this.tags = tags != null ? tags : Collections.emptySet();
+    this.favorites = favorites != null ? favorites : Collections.emptyList();
   }
 }
