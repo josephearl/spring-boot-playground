@@ -37,13 +37,9 @@ class CustomerRepositoryTest {
 
     assertAll(
       "savedCustomer",
-      () -> assertEquals(2L, savedCustomer.getId()),
-      () -> assertNotSame(newCustomer, savedCustomer));
-
-    assertAll(
-      "savedCustomer",
-      () -> assertEquals(2L, savedCustomer.getId()),
       () -> assertNotSame(newCustomer, savedCustomer),
+      () -> assertEquals(2L, savedCustomer.getId()),
+      () -> assertNull(newCustomer.getId()),
       () -> assertEquals("Mr", savedCustomer.getTitle()),
       () -> assertEquals("Monty", savedCustomer.getFirstName()),
       () -> assertEquals("Burns", savedCustomer.getLastName()),
