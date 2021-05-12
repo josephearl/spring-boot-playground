@@ -3,6 +3,7 @@ package uk.co.mo.springboot.playground;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -13,4 +14,8 @@ import java.io.Serializable;
 class FavoriteId implements Serializable {
   private Long customer;
   private Integer customerKey;
+
+  FavoriteId(Integer customerKey) {
+    this.customerKey = customerKey;
+  }
 }

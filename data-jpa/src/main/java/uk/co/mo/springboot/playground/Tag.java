@@ -2,17 +2,25 @@ package uk.co.mo.springboot.playground;
 
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Getter(AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Tag {
   @EmbeddedId
   private TagId tagId;
+  @ManyToOne
+  @MapsId("customer")
+  @JoinColumn(name = "CUSTOMER")
+  @Setter(AccessLevel.PACKAGE)
+  @Getter(AccessLevel.NONE)
+  private Customer customer;
+
+  private Tag(TagId tagId) {
+    this.tagId = tagId;
+  }
 
   public static Tag of(String value) {
     if (value == null || value.isBlank())

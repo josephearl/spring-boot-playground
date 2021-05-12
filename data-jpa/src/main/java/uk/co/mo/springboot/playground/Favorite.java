@@ -2,19 +2,21 @@ package uk.co.mo.springboot.playground;
 
 import lombok.*;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EqualsAndHashCode(exclude = "favoriteId")
+@EqualsAndHashCode(exclude = {"favoriteId", "customer"})
 public class Favorite {
   @EmbeddedId
-  @Getter(AccessLevel.PROTECTED)
+  @Getter(AccessLevel.PACKAGE)
   private FavoriteId favoriteId;
+  @ManyToOne
+  @MapsId("customer")
+  @JoinColumn(name = "CUSTOMER")
+  @Getter(AccessLevel.NONE)
+  private Customer customer;
   private String thing;
   @Enumerated(EnumType.STRING)
   private Rating rating;
@@ -30,5 +32,10 @@ public class Favorite {
     if (rating == null)
       throw new IllegalArgumentException("rating cannot be null");
     return new Favorite(thing, rating);
+  }
+
+  void setCustomer(Customer customer, int index) {
+    this.customer = customer;
+    this.favoriteId = new FavoriteId(index);
   }
 }

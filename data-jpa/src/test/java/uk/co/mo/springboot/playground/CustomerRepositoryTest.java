@@ -38,7 +38,7 @@ class CustomerRepositoryTest {
       .favorite(Favorite.of("Mr Smithers", Rating.MEH))
       .build();
 
-    var savedCustomer = customerRepository.save(newCustomer);
+    var savedCustomer = customerRepository.saveAndFlush(newCustomer);
 
     assertAll(
       "savedCustomer",
@@ -58,11 +58,12 @@ class CustomerRepositoryTest {
         .build(), savedCustomer.getPhysicalAddress()),
       () -> assertEquals(2L, savedCustomer.getPhysicalAddress().getCustomerId()),
       () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()),
-//      () -> assertTrue(savedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(2L))),
+      () -> assertTrue(savedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(2L))),
       () -> assertEquals(List.of(Favorite.of("Mr Burns", Rating.AWESOME),
-        Favorite.of("Mr Smithers", Rating.MEH)), savedCustomer.getFavorites())
-//      ,() -> assertTrue(savedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(2L)))
-    );
+        Favorite.of("Mr Smithers", Rating.MEH)), savedCustomer.getFavorites()),
+      () -> assertTrue(savedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(2L))),
+      () -> assertEquals(0, savedCustomer.getFavorites().get(0).getFavoriteId().getCustomerKey()),
+      () -> assertEquals(1, savedCustomer.getFavorites().get(1).getFavoriteId().getCustomerKey()));
   }
 
   @Test
@@ -91,6 +92,8 @@ class CustomerRepositoryTest {
       () -> assertTrue(loadedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(1L))),
       () -> assertEquals(List.of(Favorite.of("Ice cream", Rating.AWESOME),
         Favorite.of("Mr Burns", Rating.SUCKS)), loadedCustomer.getFavorites()),
-      () -> assertTrue(loadedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(1L))));
+      () -> assertTrue(loadedCustomer.getFavorites().stream().allMatch(t -> t.getFavoriteId().getCustomer().equals(1L))),
+      () -> assertEquals(0, loadedCustomer.getFavorites().get(0).getFavoriteId().getCustomerKey()),
+      () -> assertEquals(1, loadedCustomer.getFavorites().get(1).getFavoriteId().getCustomerKey()));
   }
 }

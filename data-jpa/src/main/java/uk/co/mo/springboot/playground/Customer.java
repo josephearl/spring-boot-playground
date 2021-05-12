@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 @Entity
 @Getter
@@ -23,11 +24,9 @@ public class Customer {
   private PhysicalAddress physicalAddress;
   @Embedded
   private EmailAddress emailAddress;
-  @OneToMany(orphanRemoval = true)
-  @JoinColumn(name = "CUSTOMER")
+  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "customer")
   private Set<Tag> tags;
-  @OneToMany(orphanRemoval = true)
-  @JoinColumn(name = "CUSTOMER")
+  @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "customer")
   private List<Favorite> favorites;
 
   @Builder
@@ -43,6 +42,8 @@ public class Customer {
     }
     this.emailAddress = emailAddress;
     this.tags = tags != null ? tags : Collections.emptySet();
+    this.tags.forEach(tag -> tag.setCustomer(this));
     this.favorites = favorites != null ? favorites : Collections.emptyList();
+    IntStream.range(0, this.favorites.size()).forEach(i -> this.favorites.get(i).setCustomer(this, i));
   }
 }
