@@ -19,8 +19,7 @@ public class Customer {
   private String firstName;
   private String lastName;
   private LocalDate dateOfBirth;
-  @OneToOne(orphanRemoval = true)
-  @PrimaryKeyJoinColumn
+  @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "customer")
   private PhysicalAddress physicalAddress;
   @Embedded
   private EmailAddress emailAddress;
@@ -39,6 +38,9 @@ public class Customer {
     this.lastName = lastName;
     this.dateOfBirth = dateOfBirth;
     this.physicalAddress = physicalAddress;
+    if (this.physicalAddress != null) {
+      this.physicalAddress.setCustomer(this);
+    }
     this.emailAddress = emailAddress;
     this.tags = tags != null ? tags : Collections.emptySet();
     this.favorites = favorites != null ? favorites : Collections.emptyList();

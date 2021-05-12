@@ -56,7 +56,7 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), savedCustomer.getPhysicalAddress()),
-//      () -> assertEquals(2L, savedCustomer.getPhysicalAddress().getCustomer()),
+      () -> assertEquals(2L, savedCustomer.getPhysicalAddress().getCustomerId()),
       () -> assertEquals(Set.of(Tag.of("creepy"), Tag.of("moneybags")), savedCustomer.getTags()),
 //      () -> assertTrue(savedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(2L))),
       () -> assertEquals(List.of(Favorite.of("Mr Burns", Rating.AWESOME),
@@ -86,7 +86,7 @@ class CustomerRepositoryTest {
         .postCode("80085")
         .country("US")
         .build(), loadedCustomer.getPhysicalAddress()),
-      () -> assertEquals(1L, loadedCustomer.getPhysicalAddress().getCustomer()),
+      () -> assertEquals(1L, loadedCustomer.getPhysicalAddress().getCustomerId()),
       () -> assertEquals(Set.of(Tag.of("soppy")), loadedCustomer.getTags()),
       () -> assertTrue(loadedCustomer.getTags().stream().allMatch(t -> t.getTagId().getCustomer().equals(1L))),
       () -> assertEquals(List.of(Favorite.of("Ice cream", Rating.AWESOME),
