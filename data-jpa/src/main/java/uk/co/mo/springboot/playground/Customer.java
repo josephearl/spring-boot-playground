@@ -27,6 +27,7 @@ public class Customer {
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "customer")
   private Set<Tag> tags;
   @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "customer")
+  @OrderBy("favoriteId.customerKey")
   private List<Favorite> favorites;
 
   @Builder
