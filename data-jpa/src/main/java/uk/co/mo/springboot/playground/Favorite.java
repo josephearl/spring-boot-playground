@@ -12,7 +12,7 @@ public class Favorite {
   @EmbeddedId
   @Getter(AccessLevel.PACKAGE)
   private FavoriteId favoriteId;
-  @ManyToOne
+  @ManyToOne(optional = false)
   @MapsId("customer")
   @JoinColumn(name = "CUSTOMER")
   @Getter(AccessLevel.NONE)

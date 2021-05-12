@@ -15,7 +15,7 @@ public class PhysicalAddress {
   @Column(name = "CUSTOMER")
   @Getter(AccessLevel.PACKAGE)
   private Long customerId;
-  @OneToOne
+  @OneToOne(optional = false)
   @MapsId
   @JoinColumn(name = "CUSTOMER")
   @Setter(AccessLevel.PACKAGE)

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Tag {
   @EmbeddedId
   private TagId tagId;
-  @ManyToOne
+  @ManyToOne(optional = false)
   @MapsId("customer")
   @JoinColumn(name = "CUSTOMER")
   @Setter(AccessLevel.PACKAGE)
