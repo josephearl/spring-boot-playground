@@ -7,5 +7,6 @@ Each directory is its own standalone Gradle project. All projects require Java 1
 * data-jdbc - using Spring Data JDBC for working with databases
 * data-jpa - using Spring Data JPA for working with databases
 * test-slices - using Spring Boot Test slices
-* value-deser - deserializing immutable values
+* value-deser - using Jackson to deserialize immutable values
 * vanilla-webflux - a Spring WebFlux application with zero Spring magic
+* validation - using Spring Boot Validation and the differences between @Valid and @Validation

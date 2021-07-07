@@ -1,0 +1,49 @@
+plugins {
+  id 'java'
+
+  // Spring
+  id 'org.springframework.boot' version '2.4.5'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+}
+
+group = 'uk.co.mo.springboot.playground'
+description = 'Spring Boot Playground'
+
+repositories {
+  mavenCentral()
+}
+
+dependencyManagement {
+  imports {
+    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2020.0.2'
+  }
+}
+
+dependencies {
+  // Spring
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+  compileOnly 'org.springframework.boot:spring-boot-devtools'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-validation'
+  runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
+
+  // Testing
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  // Lombok
+  compileOnly 'org.projectlombok:lombok'
+  annotationProcessor 'org.projectlombok:lombok'
+}
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.withType(Test) {
+  testLogging {
+    showStandardStreams = true
+    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+  }
+  useJUnitPlatform()
+}
